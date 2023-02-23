@@ -3,7 +3,7 @@ import streamlit as st
 
 # Set up OpenAI API credentials
 openai.organization = "org-XP8O35XTTZAjlELlN40Squ76"
-openai.api_key = 'OPENAI_API_KEY'
+openai.api_key = "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"
 # Define the ChatGPT function
 def chat_gpt(prompt):
     # Generate a response using the OpenAI GPT API

@@ -2,7 +2,7 @@ import openai
 import streamlit as st
 
 # Set up OpenAI API credentials
-OPENAI_API_KEY
+openai.api_key = OPENAI_API_KEY
 # Define the ChatGPT function
 def chat_gpt(prompt):
     # Generate a response using the OpenAI GPT API

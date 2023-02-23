@@ -1,3 +1,4 @@
+openai
 httplib2
 oauth2client
 streamlit_option_menu

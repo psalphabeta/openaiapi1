@@ -1,43 +1,26 @@
-import openai
 import streamlit as st
+import requests
 
-# Set up OpenAI API credentials
-openai.organization = "org-XP8O35XTTZAjlELlN40Squ76"
-openai.api_key = "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"
-# Define the ChatGPT function
-def chat_gpt(prompt):
-    # Generate a response using the OpenAI GPT API
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=prompt,
-        max_tokens=60,
-        n=1,
-        stop=None,
-        temperature=0.7,
+st.title("Open AI API")
+
+# Get the API key from the user
+api_key = st.text_input("Enter your API key")
+
+# Get the text to analyze from the user
+text = st.text_area("Enter the text to analyze")
+
+# Make a request to the Open AI API
+if api_key and text:
+    response = requests.post(
+        "https://api.openai.com/v1/engines/davinci/completions",
+        json={
+            "prompt": text,
+            "max_tokens": 50,
+            "temperature": 0.7,
+            "top_p": 0.9,
+        },
+        headers={"Authorization": f"Bearer {api_key}"},
     )
 
-    # Extract the generated text from the API response
-    message = response.choices[0].text.strip()
-
-    return message
-
-# Define the Streamlit app
-def app():
-    # Set the app title
-    st.title("ChatGPT")
-
-    # Create a text input for the user to enter their message
-    user_input = st.text_input("You:", "")
-
-    # Generate a response to the user input
-    if user_input:
-        response = chat_gpt(user_input)
-    else:
-        response = ""
-
-    # Display the response
-    st.text_area("ChatGPT:", value=response, height=200)
-
-# Run the Streamlit app
-if __name__ == "__main__":
-    app()
+    # Show the response from the API
+    st.write(response.json())
